@@ -1,0 +1,29 @@
+1. npm init -y 
+2. install the required dependencies
+3. index.js , basic code is written 
+4. config-databse connectivity 
+5. models (all models)
+6. controllers  (regiter, login)
+7. create routes for the controllers defined.
+9.middlewares
+10. mapping of routes  in the index.js
+11. testing 
+
+
+controller, 
+route , 
+mapping,
+test
+
+
+
+
+process for dotenv 
+dotenv : 1. for  configuration data  2. security 
+data is by default in string format
+
+npm i dotenv
+1. create .env file in root folder
+2. configuration and security data should be written 
+3. access it via process.env.<var name >
+4.require("dotenv").config()  to acccess it 
