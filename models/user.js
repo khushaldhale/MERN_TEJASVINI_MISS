@@ -7,15 +7,38 @@ const userSchema = new mongoose.Schema(
 
 		fname: {
 			type: String,
-			required: true
+			required: true,
+			unique: true,
+			set: (value) => {
+				return value.toUpperCase()
+			},
+			get: (value) => {
+				return value.toLowerCase();
+			}
+
 		},
 		lname: {
 			type: String,
-			required: true
+			required: true,
+
 		},
 		email: {
 			type: String,
 			required: true
+		},
+		age: {
+			type: Number,
+			unique: true,
+			//  this is object , it has two keys 
+			//  validator:  which is function or daata member 
+			// message :" which is state hre"
+			validate: {
+
+				validator: (value) => {
+					return value > 0
+				},
+				message: "age  should not be less tahn zero"
+			}
 		},
 		password: {
 			type: String,
@@ -28,6 +51,10 @@ const userSchema = new mongoose.Schema(
 			}
 		]
 
+	},
+	{
+		toObject: { getters: true }, // Apply getters when using .toObject()
+		toJSON: { getters: true } // Apply getters when using .toJSON()
 	}
 )
 
