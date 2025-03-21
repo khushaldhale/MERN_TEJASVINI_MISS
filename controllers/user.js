@@ -52,3 +52,36 @@ exports.getUsers = async (req, res) => {
 			})
 	}
 }
+
+exports.deleteUser = async (req, res) => {
+	try {
+
+		const user_id = req.params.id;
+
+		if (!user_id) {
+			return res.status(400)
+				.json({
+					success: false,
+					message: "kinldy provide an user id "
+				})
+		}
+
+		const response = await userModel.findByIdAndDelete(user_id);
+
+		return res.status(200)
+			.json({
+				success: true,
+				message: 'user is deleted succesfuly',
+				data: response
+			})
+
+	}
+	catch (error) {
+		console.log(error)
+		return res.status(500)
+			.json({
+				success: false,
+				message: "Internal error occured "
+			})
+	}
+}

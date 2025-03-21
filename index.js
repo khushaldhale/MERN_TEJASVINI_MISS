@@ -4,7 +4,8 @@ const app = express();
 // dotenv.config()
 require("dotenv").config()
 const cloudinary = require("cloudinary").v2
-const { createUser, getUsers } = require("./controllers/user");
+const { createUser, getUsers, deleteUser } = require("./controllers/user");
+const { authentication, isAdmin } = require("./middlewares/authentication");
 
 
 app.use(express.json());
@@ -88,6 +89,7 @@ dbConnect()
 app.post("/user", createUser);
 app.get("/user", getUsers);
 
+app.delete("/user/:id", authentication, isAdmin, deleteUser)
 
 const cloudinaryConnect = require("./config/cloudConnect");
 cloudinaryConnect()

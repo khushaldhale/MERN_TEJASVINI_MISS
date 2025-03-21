@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
 				message: "age  should not be less tahn zero"
 			}
 		},
+		accountType: {
+			type: String,
+			enum: ["admin", "user"]
+		},
 		password: {
 			type: String,
 			required: true

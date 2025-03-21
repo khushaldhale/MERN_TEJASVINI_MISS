@@ -49,3 +49,30 @@ exports.authentication = async (req, res, next) => {
 
 	}
 }
+
+
+
+exports.isAdmin = async (req, res, next) => {
+	try {
+
+
+
+		if (req.decode.accountType === "admin") {
+			return next();
+		}
+
+		return res.status(403)
+			.json({
+				succcess: false,
+				message: " This is a protected route for admin only "
+			})
+	}
+	catch (error) {
+		console.log(error)
+		return res.status(500)
+			.json({
+				success: false,
+				message: "Internal error occured "
+			})
+	}
+}

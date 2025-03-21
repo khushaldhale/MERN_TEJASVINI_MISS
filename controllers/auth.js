@@ -6,9 +6,9 @@ require("dotenv").config()
 exports.register = async (req, res) => {
 	try {
 
-		const { fname, lname, email, password } = req.body;
+		const { fname, lname, email, password, accountType } = req.body;
 
-		if (!fname || !lname || !email || !password) {
+		if (!fname || !lname || !email || !password || !accountType) {
 			return res.status(400)
 				.json({
 					success: false,
@@ -30,7 +30,7 @@ exports.register = async (req, res) => {
 
 		const hashedPassword = await bcrypt.hash(password, 10);
 
-		const user = await userSchema.create({ fname, lname, email, password: hashedPassword });
+		const user = await userSchema.create({ fname, lname, email, password: hashedPassword, accountType });
 		return res.status(200)
 			.json({
 				success: true,
@@ -81,7 +81,9 @@ exports.login = async (req, res) => {
 
 
 			const token = jwt.sign({
-				_id: is_existing._id
+				_id: is_existing._id,
+				accountType: is_existing.accountType
+
 			},
 				process.env.JWT_SECRET,
 				{
