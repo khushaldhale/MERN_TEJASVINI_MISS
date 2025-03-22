@@ -10,7 +10,7 @@ exports.authentication = async (req, res, next) => {
 		const token = req.cookies.token;
 
 		if (!token) {
-			res.status(401)
+			return res.status(401)
 				.json({
 					success: false,
 					message: 'kindly login yourself ',
@@ -23,7 +23,7 @@ exports.authentication = async (req, res, next) => {
 
 
 			if (error) {
-				res.status(401)
+				return res.status(401)
 					.json({
 						success: false,
 						message: 'invalid token, token expired  ',
@@ -33,13 +33,13 @@ exports.authentication = async (req, res, next) => {
 			}
 
 			req.decode = decode;
-			next()
+			return next()
 
 		})
 
 	}
 	catch (error) {
-		res.status(500)
+		return res.status(500)
 			.json({
 				success: false,
 				message: 'Internal error occured  ',
